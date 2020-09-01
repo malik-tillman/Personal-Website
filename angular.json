@@ -24,7 +24,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -88,7 +88,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -119,6 +119,15 @@
           }
         }
       }
-    }},
-  "defaultProject": "Angular-Root"
+    }
+  },
+  "defaultProject": "Angular-Root",
+  "cli": {
+    "analytics": "e7cce9ea-3c61-4142-af70-3485a2a40170"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

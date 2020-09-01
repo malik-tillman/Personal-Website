@@ -1,0 +1,45 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  padding: 0 25px;
+
+  background-color: rgba(50, 27, 27, 0.5);
+  //opacity: .5;
+
+  min-height: 75px;
+  transition: height 1s;
+}
+
+.logo_container {
+  display: flex;
+  align-items: center;
+
+  a {
+    display: inline-block;
+  }
+}
+
+.logo {
+  width: 25px;
+  padding-right: 10px;
+
+  fill: white;
+}
+
+.footer-text {
+  justify-self: center;
+  align-self: center;
+
+  padding: 15px;
+  text-align: center;
+  color: white;
+  font-family: Lato, sans-serif;
+  font-size: 12px;
+}
+
+/* Mobile Media Query */
+@media (max-width: 450px) {
+  .container {
+    min-height: 50px;
+  }
+}

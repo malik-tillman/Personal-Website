@@ -125,6 +125,7 @@
     },
     "whitespace": {
       "options": [
+        false,
         "check-branch",
         "check-decl",
         "check-operator",
@@ -148,5 +149,6 @@
   },
   "rulesDirectory": [
     "codelyzer"
-  ]
+  ],
+  "no-trailing-whitespace": false
 }
