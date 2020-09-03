@@ -15,6 +15,7 @@ import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { WorksListComponent } from './works/works-list/works-list.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
