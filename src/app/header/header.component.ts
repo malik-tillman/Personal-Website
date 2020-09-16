@@ -1,5 +1,5 @@
 import {Component, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { WorksListService, WorksList } from '../works/works-list.service';
+import { FetchWorksService, MetaProject, CDN } from '../fetch-works.service';
 
 import Typed from 'typed.js';
 import { gsap } from 'gsap';
@@ -11,11 +11,13 @@ import {NavigationStart, Router} from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterViewInit {
+  public cdnUrl:string = CDN;
+
   public menuToggle:boolean = false;
 
   public favoritesId:number[] = [130,131,134,145,148];
 
-  public worksList:WorksList[] = [];
+  public worksList:MetaProject[] = [];
 
   private typedNameConfig: object = {
     strings: [ 'Malik_Tillman' ],
@@ -27,12 +29,16 @@ export class HeaderComponent implements AfterViewInit {
 
   @ViewChild("container") container: ElementRef;
 
-  constructor(private worksListService: WorksListService, private router:Router) {
-    worksListService.getWorksListByIds(this.favoritesId)
-      .subscribe(( data ) => {
+  constructor(
+    private fetchWorksService: FetchWorksService,
+    private router:Router
+  ) {
+    fetchWorksService.getWorksListByIds(this.favoritesId)
+      .then(( data:MetaProject[] ) => {
         this.worksList = data;
       })
 
+    /* When route changes, close menu and scroll to top */
     router.events.subscribe(event => {
       if(event instanceof NavigationStart){
         this.menuToggle = false;

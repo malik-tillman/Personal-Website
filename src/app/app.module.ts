@@ -14,8 +14,9 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
-import { WorksListComponent } from './works/works-list/works-list.component';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { SocialIconsComponent } from './social-icons/social-icons.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {RouterModule} from '@angular/router';
     ContactComponent,
     FooterComponent,
     LoaderComponent,
-    WorksListComponent
+    SocialIconsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

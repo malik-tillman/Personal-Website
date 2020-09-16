@@ -4,26 +4,10 @@
   padding: 0 25px;
 
   background-color: rgba(50, 27, 27, 0.5);
-  //opacity: .5;
+  backdrop-filter: blur(10px);
 
   min-height: 75px;
   transition: height 1s;
-}
-
-.logo_container {
-  display: flex;
-  align-items: center;
-
-  a {
-    display: inline-block;
-  }
-}
-
-.logo {
-  width: 25px;
-  padding-right: 10px;
-
-  fill: white;
 }
 
 .footer-text {
@@ -38,8 +22,13 @@
 }
 
 /* Mobile Media Query */
-@media (max-width: 450px) {
+@media (max-width: 630px) {
   .container {
     min-height: 50px;
+    grid-template-columns: 1fr;
+
+    social-icons {
+      display: none;
+    }
   }
 }

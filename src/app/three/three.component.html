@@ -1,1 +1,15 @@
-<canvas #main [ngStyle]="{'margin': 0}"></canvas>
+<div class="container">
+  <div #image class="hover-image_container" [class.hovered]="_hover.state">
+    <ng-container *ngIf="worksList">
+      <a *ngFor="let work of worksList; let _index=index" routerLink="/_projectCache/{{ work.id }}" [class.show]="_show[_index]">
+        <img class="hover-image" src="https://{{ cdn_url }}/images/{{ work.thumbnail }}" alt="">
+      </a>
+
+    </ng-container>
+  </div>
+
+  <canvas #main [ngStyle]="{'margin': 0}"></canvas>
+</div>
+
+
+

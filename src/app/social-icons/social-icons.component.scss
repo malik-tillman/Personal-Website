@@ -1,0 +1,28 @@
+.logo_container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  a {
+    display: inline-block;
+
+    .logo {
+      width: 20px;
+      margin-right: 25px;
+
+      fill: white;
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .logo_container {
+
+    a {
+
+      .logo {
+
+      }
+    }
+  }
+}
