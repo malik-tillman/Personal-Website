@@ -1,5 +1,26 @@
 .page-container {
+  z-index: 1;
 
+  overflow: hidden;
+
+  &.loaded {
+    overflow: unset;
+  }
+}
+
+loader {
+  position: fixed;
+  top: 0;
+
+  opacity: 1;
+
+  pointer-events: none;
+  z-index: 100;
+
+  &.loaded {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
 }
 
 .header {

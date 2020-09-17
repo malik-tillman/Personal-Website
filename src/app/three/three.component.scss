@@ -11,6 +11,7 @@ canvas {
   display: block;
   outline: none;
   user-select: none;
+  pointer-events: none;
 }
 
 .hover-image_container {
@@ -18,15 +19,18 @@ canvas {
   display: flex;
 
   height: 0;
-  transition: height .5s ease-in-out;
+  transform: translate(-10px, -10px);
+
+  opacity: 0;
+  transition: opacity .5s ease-in-out, height .5s ease;
 
   &.hovered {
-    height: 200px;
+    opacity: 1;
+    height: 300px;
   }
 
   a {
     position: absolute;
-    cursor: unset;
     overflow: hidden;
 
     height: 0;
@@ -35,16 +39,106 @@ canvas {
     &.show {
       height: 100%;
     }
+
+    img {
+      max-width: 300px;
+      border-radius: 15px;
+    }
+  }
+}
+
+.marquee-container {
+  width: 100%;
+  height: 90vh;
+  position: fixed;
+
+  background-color: transparent;
+
+  opacity: 0;
+  transition: opacity 2s ease;
+
+  z-index: -1;
+
+  &.hovered {
+    opacity: 1;
   }
 
-  img {
-    max-width: 300px;
+  .marquee {
+    position: fixed;
+
+    top: 200px;
+    opacity: 0;
+    transition: opacity 2s ease;
+
+    --offset: 20vw;
+    --move-initial: calc(-20% + var(--offset));
+    --move-final: calc(-40% + var(--offset));
+
+    &.show {
+      opacity: 1;
+    }
+
+    .marquee-intrinsic {
+      width: fit-content;
+      display: flex;
+      position: relative;
+      transform: translate3d(var(--move-initial), 0, 0);
+      animation: marquee 5s linear infinite;
+      animation-play-state: running;
+
+      span {
+        width: max-content;
+        margin: 50px;
+
+        font-family: Lato, sans-serif;
+        font-size: 5vw;
+
+        color: white;
+        -webkit-text-stroke: .5px white;
+        -webkit-text-fill-color: transparent;
+      }
+    }
   }
 }
 
 @media (max-width: 630px) {
   .hover-image_container {
-    display: none;
+    z-index: -1;
+
+    right: 250px !important;
+    top: 150px !important;
+
+    &.hovered {
+      height: 200px;
+    }
+
+    a {
+     img {
+       max-width: 200px;
+       border-radius: 0;
+     }
+    }
+  }
+
+  .marquee-container {
+    .marquee {
+      top: 175px;
+
+      .marquee-intrinsic {
+        span {
+          font-size: 10vw;
+        }
+      }
+    }
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translate3d(var(--move-initial), 0, 0);
+  }
+
+  100% {
+    transform: translate3d(var(--move-final), 0, 0);
+  }
+}

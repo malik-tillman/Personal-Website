@@ -1,4 +1,8 @@
-<div class="page-container">
+<ngx-loading-bar [color]="'#730900'" [height]="'3px'" [includeSpinner]="false" [fixed]="true"></ngx-loading-bar>
+
+<loader [class.loaded]="loaded"></loader>
+
+<div class="page-container" [class.loaded]="loaded">
   <app-header #header class="header" [class.no-background]="isBackground"></app-header>
 
   <main class="content">
@@ -7,3 +11,5 @@
 
   <app-footer #footer class="footer"></app-footer>
 </div>
+
+

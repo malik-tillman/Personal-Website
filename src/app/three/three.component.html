@@ -1,11 +1,22 @@
 <div class="container">
   <div #image class="hover-image_container" [class.hovered]="_hover.state">
     <ng-container *ngIf="worksList">
-      <a *ngFor="let work of worksList; let _index=index" routerLink="/_projectCache/{{ work.id }}" [class.show]="_show[_index]">
+      <a *ngFor="let work of worksList; let _index=index" [routerLink]="['/works', 'project']" [queryParams]="{ id: work.id }" [class.show]="_show[_index]">
         <img class="hover-image" src="https://{{ cdn_url }}/images/{{ work.thumbnail }}" alt="">
       </a>
-
     </ng-container>
+  </div>
+
+  <div class="marquee-container" [class.hovered]="_hover.state">
+    <div class="marquee" *ngFor="let work of worksList; let _index=index" [class.show]="_show[_index]">
+      <div class="marquee-intrinsic">
+        <span>{{ work.name }}</span>
+        <span>{{ work.name }}</span>
+        <span>{{ work.name }}</span>
+        <span>{{ work.name }}</span>
+        <span>{{ work.name }}</span>
+      </div>
+    </div>
   </div>
 
   <canvas #main [ngStyle]="{'margin': 0}"></canvas>

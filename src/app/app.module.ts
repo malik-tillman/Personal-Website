@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {routing} from './app.routing';
+import { routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
@@ -17,6 +17,11 @@ import { LoaderComponent } from './loader/loader.component';
 import { RouterModule } from '@angular/router';
 import { SocialIconsComponent } from './social-icons/social-icons.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router'
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client'
+
 
 @NgModule({
   declarations: [
@@ -37,7 +42,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BrowserModule,
     routing,
     HttpClientModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    LoadingBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

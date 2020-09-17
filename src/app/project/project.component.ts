@@ -42,13 +42,13 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
   private sliderOptions:any = {
     type: 'loop',
     autoplay: true,
-    interval: 3000,
+    interval: 10000,
     autoWidth: true,
     width: '100%',
     height: '50vh',
-    trimSpace: false,
-    rewind: true,
-    focus: 'end',
+    focus: 'center',
+    slideFocus: false,
+    trimSpace: true,
     perPage: 1
   }
 

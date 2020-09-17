@@ -68,6 +68,8 @@ export class ThreeComponent implements AfterViewInit {
     let rectLight;
     let mainRectLight;
 
+    let cachedDistance;
+
     /* Create Renderer */
     {
       renderer = new THREE.WebGLRenderer({
@@ -226,11 +228,14 @@ export class ThreeComponent implements AfterViewInit {
           hovered.object = hovered.object.parent;
         }
 
+        if(window.innerWidth < 630){
+
+        }
+
         setHoverState(hovered);
       }
 
-      else {
-        hovered.state = false;
+      else if(hovered && window.innerWidth > 630) {
         setHoverState(false);
       }
 
@@ -274,7 +279,7 @@ export class ThreeComponent implements AfterViewInit {
       mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
       mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-      if (this._hover.state) {
+      if (this._hover.state && window.innerWidth > 630) {
         this._image.nativeElement.style.left = `${ event.clientX }px`;
         this._image.nativeElement.style.top = `${ event.clientY }px`;
       }
@@ -314,6 +319,7 @@ export class ThreeComponent implements AfterViewInit {
     }
 
     window.addEventListener('mousemove', onMouseMove, false);
+    window.addEventListener('touchend', onMouseMove, false);
 
     render();
   }
