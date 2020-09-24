@@ -62,4 +62,12 @@ export class HeaderComponent implements AfterViewInit {
   closeMenu() {
     this.menuToggle = false;
   }
+
+  /* Resolves Media URL */
+  resolveURL(uri, type) {
+    if(type == 'webp')
+      return `https://${this.cdnUrl}/images/${uri}.webp`;
+
+    return `https://${this.cdnUrl}/images/${uri}.jpg`;
+  }
 }

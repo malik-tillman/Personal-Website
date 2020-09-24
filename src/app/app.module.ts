@@ -14,7 +14,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
-import { RouterModule } from '@angular/router';
+import {RouteReuseStrategy, RouterModule} from '@angular/router';
 import { SocialIconsComponent } from './social-icons/social-icons.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 

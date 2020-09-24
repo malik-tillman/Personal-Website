@@ -1,3 +1,5 @@
+<div class="nav-mask" [class.menu_open]="menuToggle" (click)="toggleMenu()"></div>
+
 <nav class="menu" [class.menu_open]="menuToggle" #container>
   <button class="close-button button" type="button" (click)="toggleMenu()">
     <svg class="close-icon" viewBox="0 0 100 100" xml:space="preserve">
@@ -53,7 +55,11 @@
 
   <div class="favorite-container">
     <a class="favorites" *ngFor="let work of worksList" [routerLink]="['works', 'project']" [queryParams]="{ id: work.id }">
-      <img src="https://{{ cdnUrl }}/images/{{ work.thumbnail }}" alt="{{ work.name }} thumbnail image">
+      <picture>
+        <source srcset="{{ resolveURL(work.thumbnail, 'webp') }}" type="image/webp">
+        <source srcset="{{ resolveURL(work.thumbnail, 'jpeg') }}" type="image/jpeg">
+        <img class="thumbnail" src="{{ resolveURL(work.thumbnail, 'jpeg') }}" alt="{{ work.name }} thumbnail image" >
+      </picture>
       <h3 class="works-name">{{ work.name }}</h3>
     </a>
   </div>

@@ -19,6 +19,7 @@ import {
 import { FetchWorksService, Project, CDN } from '../fetch-works.service';
 import { Subscription } from 'rxjs';
 import Splide from '@splidejs/splide';
+import Video from '@splidejs/splide-extension-video'
 
 @Component({
   selector: 'project',
@@ -46,7 +47,7 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
     autoWidth: true,
     width: '100%',
     height: '50vh',
-    focus: 'center',
+    focus: 'end',
     slideFocus: false,
     trimSpace: true,
     perPage: 1
@@ -110,9 +111,31 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
 
         /* Initialize splider */
         if(isImages)
-          this.imageSplide = new Splide(this.imagesContainerRef.nativeElement, this.sliderOptions).mount();
-        else
-          this.videoSplide = new Splide(this.videosContainerRef.nativeElement, this.sliderOptions).mount();
+          this.imageSplide = new Splide(this.imagesContainerRef.nativeElement, {
+            type: 'loop',
+            autoplay: true,
+            interval: 10000,
+            autoWidth: true,
+            width: '100%',
+            height: '50vh',
+            trimSpace: true,
+            perPage: 1,
+            breakpoints: {
+
+            }
+          }).mount();
+        else {
+          this.videoSplide = new Splide(this.videosContainerRef.nativeElement, {
+            type: 'loop',
+            autoplay: true,
+            interval: 10000,
+            autoWidth: true,
+            width: '100%',
+            height: '50vh',
+            trimSpace: true,
+            perPage: 1
+          }).mount({Video});
+        }
 
         _subscription.unsubscribe();
       });
@@ -131,5 +154,13 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
       top: window.innerHeight,
       behavior: 'smooth'
     })
+  }
+
+  /* Resolves Media URL */
+  resolveURL(uri, type) {
+    if(type == 'webp')
+      return `https://${this.cdn_url}/images/${uri}.webp`;
+
+    return `https://${this.cdn_url}/images/${uri}.jpg`;
   }
 }

@@ -2,7 +2,11 @@
   <div #image class="hover-image_container" [class.hovered]="_hover.state">
     <ng-container *ngIf="worksList">
       <a *ngFor="let work of worksList; let _index=index" [routerLink]="['/works', 'project']" [queryParams]="{ id: work.id }" [class.show]="_show[_index]">
-        <img class="hover-image" src="https://{{ cdn_url }}/images/{{ work.thumbnail }}" alt="">
+        <picture class="hover-image">
+          <source srcset="{{ resolveURL(work.thumbnail, 'webp') }}" type="image/webp">
+          <source srcset="{{ resolveURL(work.thumbnail, 'jpeg') }}" type="image/jpeg">
+          <img class="thumbnail" src="{{ resolveURL(work.thumbnail, 'jpeg') }}" alt="">
+        </picture>
       </a>
     </ng-container>
   </div>

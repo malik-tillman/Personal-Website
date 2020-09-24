@@ -323,4 +323,12 @@ export class ThreeComponent implements AfterViewInit {
 
     render();
   }
+
+  /* Resolves Media URL */
+  resolveURL(uri, type) {
+    if(type == 'webp')
+      return `https://${this.cdn_url}/images/${uri}.webp`;
+
+    return `https://${this.cdn_url}/images/${uri}.jpg`;
+  }
 }

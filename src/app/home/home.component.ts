@@ -41,5 +41,4 @@ export class HomeComponent implements OnInit {
     const typedName = new Typed('#typed', this.typedConfig);
     typedName.start();
   }
-
 }

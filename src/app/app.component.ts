@@ -29,7 +29,7 @@ export class AppComponent {
       }
 
       else {
-        await this.sleep(500);
+        await this.sleep(700);
         this.loader.useRef().complete();
 
         await this.sleep(500);

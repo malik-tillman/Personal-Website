@@ -23,6 +23,7 @@
     "@ngx-loading-bar/router": "^5.1.0",
     "@splidejs/splide": "^2.4.14",
     "@splidejs/splide-extension-url-hash": "^0.1.5",
+    "@splidejs/splide-extension-video": "^0.4.6",
     "angular-loading-bar": "^0.9.0",
     "bodymovin": "^4.13.0",
     "gsap": "^3.5.1",

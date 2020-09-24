@@ -218,7 +218,16 @@
             </div>
           </div>
 
-          <img class="thumbnail" alt="" [defaultImage]="'assets/lazy-thumb'" [lazyLoad]="'https://' +  cdn_url + '/images/' + works.thumbnail">
+          <div class="loading-logo_container">
+            <div #image_loader class="loading-logo"></div>
+          </div>
+
+          <picture>
+            <source [attr.lazyLoad]="resolveURL(works.thumbnail, 'webp')" type="image/webp">
+            <source [attr.lazyLoad]="resolveURL(works.thumbnail, 'jpeg')" type="image/jpeg">
+            <img class="thumbnail" alt="" [lazyLoad]="resolveURL(works.thumbnail, 'jpeg')">
+          </picture>
+
         </a>
       </ng-container>
     </div>
