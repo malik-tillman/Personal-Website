@@ -7,7 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
 // todo: handle errors
 
 /* Determine environment */
-const production:boolean = false;
+const production:boolean = true;
 
 @Injectable({
   providedIn: 'root'
