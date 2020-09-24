@@ -40,12 +40,9 @@ canvas {
       height: 100%;
     }
 
-    picture {
-
-      img {
-        max-width: 300px;
-        border-radius: 15px;
-      }
+    img, picture {
+      max-width: 300px;
+      border-radius: 15px;
     }
 
   }
@@ -117,7 +114,7 @@ canvas {
     }
 
     a {
-     img {
+     img, picture {
        max-width: 200px;
        border-radius: 0;
      }

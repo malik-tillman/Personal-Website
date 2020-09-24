@@ -15,7 +15,7 @@ export class HeaderComponent implements AfterViewInit {
 
   public menuToggle:boolean = false;
 
-  public favoritesId:number[] = [130,131,134,145,148];
+  public favoritesId:number[] = [130,131,135,154,148];
 
   public worksList:MetaProject[] = [];
 

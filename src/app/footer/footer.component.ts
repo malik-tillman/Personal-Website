@@ -9,8 +9,12 @@ import Typed from 'typed.js';
 export class FooterComponent implements OnInit {
   randomFactsTypedConfig:object = {
     strings: [
-      'Welcome to my site!',
-      'This site was designed and developed by Malik Tillman'
+      'Welcome to MalikTillman.com!',
+      '"What\'s science to a man that can\'t apply it?" - Roc Marciano',
+      'I build sites 💻 and make videos 🎥',
+      'This site was designed and developed by Malik Tillman',
+      'I\'m always looking to collaborate, hit my line!',
+      'A Leek Production'
     ],
     typeSpeed: 25,
     backSpeed: 50,
@@ -19,7 +23,8 @@ export class FooterComponent implements OnInit {
     showCursor: true,
     cursorChar: '',
     autoInsertCss: true,
-    loop: true
+    loop: true,
+    shuffle: true
   };
 
   constructor() { }

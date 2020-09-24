@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import {element} from 'protractor';
 import { FetchWorksService, MetaProject, CDN } from '../fetch-works.service';
 import {NavigationStart, Router} from '@angular/router';
+import { gsap } from 'gsap';
 
 @Component({
   selector: 'three',
@@ -25,7 +26,7 @@ export class ThreeComponent implements AfterViewInit {
 
   public worksList:MetaProject[] = [];
 
-  public _hoverIDs = [130,131,134,145,148];
+  public _hoverIDs = [130,131,135,154,148];
 
   public _show = [
     false,
@@ -175,11 +176,15 @@ export class ThreeComponent implements AfterViewInit {
 
         let index = 0;
 
+        gltfObj.traverse(obj => {
+          if (obj.isMesh) obj.material = material;
+        })
+
         logo.CHUNKS.forEach( element => {
           element.layers.enable(1);
         })
 
-        logo.material = material;
+
 
         scene.add(gltfObj);
         scene.add(rectLight);
@@ -330,5 +335,21 @@ export class ThreeComponent implements AfterViewInit {
       return `https://${this.cdn_url}/images/${uri}.webp`;
 
     return `https://${this.cdn_url}/images/${uri}.jpg`;
+  }
+
+  /* Translates ThreeJS material color */
+  colorTo(target, value, scene) {
+    let initial = new THREE.Color(target.material.color.getHex());
+    target = scene.getObjectByName(target);
+
+    value = new THREE.Color(value.color.getHex());
+
+    gsap.to(initial, 1, {
+      r: value.r,
+      g: value.g,
+      b: value.b,
+      ease: Cubic.easeInOut,
+      onUpdate: function() { target.material.color = initial; }
+    });
   }
 }

@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
     showCursor: true,
     cursorChar: '',
     autoInsertCss: true,
-    loop: true
+    loop: true,
+    shuffle: true
   };
 
   static addPeriod(arr) {
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
     return arr;
   }
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.typedConfig.strings = HomeComponent.addPeriod(this.typedConfig.strings);

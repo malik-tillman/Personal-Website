@@ -35,9 +35,7 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
 
   /* Dom refs */
   @ViewChildren('images') private _imagesRef:QueryList<ElementRef>;
-  @ViewChildren('videos') private _videosRef:QueryList<ElementRef>;
   @ViewChild('images_container') private imagesContainerRef:ElementRef;
-  @ViewChild('videos_container') private videosContainerRef:ElementRef;
 
   /* Splider Options */
   private sliderOptions:any = {
@@ -86,7 +84,6 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
         /* Cache videos URIs and initialize slider */
         if(this.project.videos) {
           this.videoURIs = this.project.videos.split(',');
-          this.initializeSplider(this._videosRef, this.videoSplide, false);
         }
       });
     })
@@ -110,32 +107,19 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
           splider.destroy();
 
         /* Initialize splider */
-        if(isImages)
-          this.imageSplide = new Splide(this.imagesContainerRef.nativeElement, {
-            type: 'loop',
-            autoplay: true,
-            interval: 10000,
-            autoWidth: true,
-            width: '100%',
-            height: '50vh',
-            trimSpace: true,
-            perPage: 1,
-            breakpoints: {
+        this.imageSplide = new Splide(this.imagesContainerRef.nativeElement, {
+          type: 'loop',
+          autoplay: true,
+          interval: 10000,
+          autoWidth: true,
+          width: '100%',
+          height: '50vh',
+          trimSpace: true,
+          perPage: 1,
+          breakpoints: {
 
-            }
-          }).mount();
-        else {
-          this.videoSplide = new Splide(this.videosContainerRef.nativeElement, {
-            type: 'loop',
-            autoplay: true,
-            interval: 10000,
-            autoWidth: true,
-            width: '100%',
-            height: '50vh',
-            trimSpace: true,
-            perPage: 1
-          }).mount({Video});
-        }
+          }
+        }).mount();
 
         _subscription.unsubscribe();
       });

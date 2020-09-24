@@ -89,13 +89,15 @@ export class FetchWorksService {
       /* Types that have not been cached */
       let queryTypes = [];
 
-      /* Add to cached list */
-      types.forEach(type => {
-        if(!this.cachedMetaTypes.includes(type)) {
-          this.cachedMetaTypes.push(type);
-          queryTypes.push(type);
-        }
-      })
+      if(!this._isWorksListCached) {
+        /* Add to cached list */
+        types.forEach(type => {
+          if(!this.cachedMetaTypes.includes(type)) {
+            this.cachedMetaTypes.push(type);
+            queryTypes.push(type);
+          }
+        })
+      }
 
       /* Query uncached types */
       if(queryTypes.length > 0) {

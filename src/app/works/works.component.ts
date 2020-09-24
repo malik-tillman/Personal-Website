@@ -1,4 +1,16 @@
-import {Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Input, ViewChildren, QueryList, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  AfterViewInit,
+  Input,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -117,7 +129,9 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.imageLoader.changes.subscribe((queryList:QueryList<ElementRef>) => {
+    let _loaderSubscription = this.imageLoader.changes.subscribe((queryList:QueryList<ElementRef>) => {
+      console.log('hi');
+
       queryList.toArray().forEach(loader => {
         Lottie.loadAnimation({
           container: loader.nativeElement,
@@ -127,6 +141,8 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
           autoplay: true
         })
       })
+
+      _loaderSubscription.unsubscribe();
     })
   }
 
