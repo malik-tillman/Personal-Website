@@ -33,13 +33,13 @@ export class AppComponent {
       /* End loading animations */
       else {
         /* Artificial wait time (OH NO 🤯 ... ik) */
-        await this.sleep(700);
+        //await this.sleep(700);
 
         /* Finish load bar */
         this.loader.useRef().complete();
 
         /* Another artificial wait time */
-        await this.sleep(500);
+        //await this.sleep(500);
 
         /* Set loaded toggle */
         this.loaded = true;
