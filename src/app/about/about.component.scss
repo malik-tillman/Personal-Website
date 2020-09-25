@@ -72,11 +72,13 @@
 
     svg {
       fill: white;
-      width: 16px;
+      width: 25px;
       margin-right: 10px;
     }
 
     a {
+      display: flex;
+      justify-content: center;
       color: white;
       font-family: Lato Light, sans-serif;
       font-size: 16px;
@@ -86,6 +88,7 @@
 
   .project-link {
     display: flex;
+    align-items: center;
     flex-direction: row;
     margin-top: 25px;
     text-decoration: none;
@@ -94,10 +97,6 @@
     &.small {
       h2 {
         font-size: 16px;
-      }
-
-      svg {
-        width: 15px;
       }
     }
 
@@ -122,13 +121,7 @@
   .container {
     margin: 75px auto;
 
-    .text-container {
-      max-width: 750px;
-    }
-
     .toolbox-container {
     }
   }
-
-
 }

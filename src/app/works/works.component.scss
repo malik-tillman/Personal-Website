@@ -20,7 +20,6 @@
   }
 }
 
-
 @mixin top-bottom($direction, $height) {
   position: absolute;
 
@@ -46,10 +45,44 @@
   button {
     display: flex;
     align-items: center;
-    font-family: Josefin Sans, sans-serif;
+
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    background: #eaeaea;
+    cursor: pointer;
+    text-align: center;
+    will-change: background, tranform, color;
+    transition: background .5s ease, transform .5s ease, color .3s ease;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &:hover, &:focus {
+      background: #282828;
+      color: white;
+
+      svg {
+        fill: white;
+      }
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
+
+    &:focus {
+      outline: 1px solid #fff;
+      outline-offset: -4px;
+    }
 
     svg {
       width: 25px;
+      fill: black;
+
+      will-change: fill;
+      transition: fill .3s ease;
     }
   }
 
@@ -142,6 +175,14 @@
             fill: white;
             z-index: 10;
             margin-left: 25px;
+
+            transform: scale(1);
+            will-change: transform;
+            transition: transform .5s ease;
+
+            &:hover {
+              transform: scale(1.15);
+            }
           }
         }
       }

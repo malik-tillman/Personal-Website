@@ -1,18 +1,16 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router, NavigationCancel, NavigationError } from '@angular/router';
+/**
+ * app.component
+ * @author Malik Tillman
+ *
+ * 2020
+ * */
+import { Component } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
+@Component({selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.scss']})
 export class AppComponent {
-  title = 'Angular-Root';
-
-  public isBackground = false;
-
+  /* Load toggle */
   public loaded = false;
 
   constructor(
@@ -21,22 +19,58 @@ export class AppComponent {
   ) {
     /* Subscribe to routing service */
     this.router.events.subscribe(async (event) => {
+      /* Reset load toggle */
       this.loaded = false;
+
+      /* Lock scroll */
       document.body.style.overflow = 'hidden';
 
+      /* Start loading bar */
       if(event instanceof NavigationStart) {
         this.loader.useRef().start();
       }
 
+      /* End loading animations */
       else {
+        /* Artificial wait time (OH NO 🤯 ... ik) */
         await this.sleep(700);
+
+        /* Finish load bar */
         this.loader.useRef().complete();
 
+        /* Another artificial wait time */
         await this.sleep(500);
+
+        /* Set loaded toggle */
         this.loaded = true;
+
+        /* Allow scroll */
         document.body.style.overflow = 'unset';
       }
     })
+
+    /* Console log ascii art */
+    const asciiTitle = `
+      /$$$$$$        /$$      /$$$$$$$$/$$$$$$$$/$$   /$$
+     /$$__  $$      | $$     | $$_____| $$_____| $$  /$$/
+    | $$  \\ $$      | $$     | $$     | $$     | $$ /$$/
+    | $$$$$$$$      | $$     | $$$$$  | $$$$$  | $$$$$/
+    | $$__  $$      | $$     | $$__/  | $$__/  | $$  $$
+    | $$  | $$      | $$     | $$     | $$     | $$\\  $$
+    | $$  | $$      | $$$$$$$| $$$$$$$| $$$$$$$| $$ \\  $$
+    |__/  |__/      |________|________|________|__/  \\__/
+    `,
+
+    asciiTagline = `
+     ___ ___  ___  ___  _   _  ___ _____ ___ ___  _  _
+    | _ | _ \\/ _ \\|   \\| | | |/ __|_   _|_ _/ _ \\| \\| |
+    |  _|   | (_) | |) | |_| | (__  | |  | | (_) | .\` |
+    |_| |_|_\\\\___/|___/ \\___/ \\___| |_| |___\\___/|_|\\_|
+    `,
+
+    asciiTag = asciiTitle  + asciiTagline;
+
+    console.log(asciiTag);
   }
 
   /**

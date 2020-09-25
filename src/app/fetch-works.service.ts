@@ -1,17 +1,16 @@
+/**
+ * fetch-works.service
+ * @author Malik Tillman
+ *
+ * 2020
+ * */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-
-// todo: handle errors
 
 /* Determine environment */
 const production:boolean = true;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class FetchWorksService {
   /* Main API endpoint */
   private hostUrl:string = 'api.maliktillman.com';
@@ -26,6 +25,7 @@ export class FetchWorksService {
   /* List of cached types */
   public cachedMetaTypes = [];
 
+  /* Records if works list is fully cached */
   private _isWorksListCached = false;
 
   constructor(private http:HttpClient) {}
@@ -44,10 +44,11 @@ export class FetchWorksService {
       else
         this.http.get<MetaProject[]>(`https://${ this.hostUrl }/work-list`)
           .subscribe((data:MetaProject[]) => {
-            /* Cache */
+            /* Cache data */
             this._worksListCache = data;
             this._isWorksListCached = true;
 
+            /* Return data */
             resolve(data);
           });
     })
@@ -170,9 +171,19 @@ export interface MetaProject {
 }
 
 /**
+ * FavoritesID
+ * Showcase project IDs
+ * */
+export const FavoritesId:number[] = [
+  130,
+  131,
+  135,
+  154,
+  148
+];
+
+/**
  * Dynamic CDN
  * CDN url must change depending on environment website will be in
  * */
-export const CDN = production?
-  'cdn.maliktillman.com/file/maliktillman-media-store':
-  'maliktillman-media-store.s3.us-west-002.backblazeb2.com';
+export const CDN = production? 'cdn.maliktillman.com/file/maliktillman-media-store': 'maliktillman-media-store.s3.us-west-002.backblazeb2.com';

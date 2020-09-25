@@ -10,6 +10,7 @@ $font-family: Josefin Sans Light, sans-serif;
   opacity: 0;
   pointer-events: none;
 
+  will-change: opacity;
   transition: opacity 1s;
 
   &.menu_open {
@@ -46,6 +47,7 @@ $font-family: Josefin Sans Light, sans-serif;
     color: $text-color;
     font-size: 24px;
     transform: scale(1);
+    will-change: tranform;
     transition: transform .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 
     max-height: 35px;

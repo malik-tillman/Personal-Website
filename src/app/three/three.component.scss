@@ -22,6 +22,7 @@ canvas {
   transform: translate(-10px, -10px);
 
   opacity: 0;
+  will-change: opacity, height;
   transition: opacity .5s ease-in-out, height .5s ease;
 
   &.hovered {
@@ -34,6 +35,7 @@ canvas {
     overflow: hidden;
 
     height: 0;
+    will-change: height;
     transition: height .5s ease-in-out;
 
     &.show {
@@ -56,6 +58,7 @@ canvas {
   background-color: transparent;
 
   opacity: 0;
+  will-change: opacity;
   transition: opacity 2s ease;
 
   z-index: -1;
@@ -69,6 +72,7 @@ canvas {
 
     top: 200px;
     opacity: 0;
+    will-change: opacity;
     transition: opacity 2s ease;
 
     --offset: 20vw;

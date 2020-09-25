@@ -1,32 +1,17 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  AfterViewInit,
-  Input,
-  ViewChildren,
-  QueryList,
-  ElementRef,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  ResolveEnd,
-  Router
-} from '@angular/router';
+/**
+ * works.component
+ * @author Malik Tillman
+ *
+ * 2020
+ * */
+import { Component, OnDestroy, AfterViewInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { FetchWorksService, MetaProject, CDN } from '../fetch-works.service';
-import { Subscription } from 'rxjs';
 import Lottie from 'lottie-web';
 
-@Component({
-  selector: 'app-works',
-  templateUrl: './works.component.html',
-  styleUrls: ['./works.component.scss']
-})
+@Component({selector: 'app-works', templateUrl: './works.component.html', styleUrls: ['./works.component.scss']})
 export class WorksComponent implements OnDestroy, AfterViewInit {
   /* Dynamic CDN URL */
   public cdn_url:string = CDN;
@@ -58,6 +43,9 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   /* Filter toggle coefficient */
   public filterToggle = false;
 
+  /* Error Page Toggle */
+  public isProjectNotFound = false;
+
   /* Active Router Subscription, needs to be unsubscribed */
   public activeRouterSubscription:Subscription;
 
@@ -67,6 +55,7 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   /* Lazy load default image */
   public default_image = 'assets/lazy-thumb.jpg';
 
+  /* Caches component sort state */
   private sorted = {
     is: false,
     desc: false
@@ -75,53 +64,86 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   constructor(
     private fetchWorksService: FetchWorksService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private elementRefs: ElementRef
+    private activatedRoute: ActivatedRoute
   ) {
     /* Subscribe to router changes */
     this.activeRouterSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      /* Extract type parameter  */
+      /* Reset Project Not Found Toggle */
+      this.isProjectNotFound = false;
+
+      /* Extract type/category from parameter  */
       switch (params.type) {
-        /* Multi type parameter */
+        /* Multi type/category parameter */
         case 'dev':
+          /* Set heading */
           this.title = 'Dev Projects';
+
+          /* Set multiple categories */
           this.activeTypes = this.devTypes;
           break;
         case 'creative':
+          /* Set heading */
           this.title = 'Creative Projects';
+
+          /* Set multiple categories */
           this.activeTypes = this.creativeTypes;
           break;
 
-        /* Single type parameter */
+        /* Single type/category and other parameters */
         default:
           if(params.type) {
             /* Capitalize type name for title */
             this.title = `${params.type.charAt(0).toUpperCase() + params.type.slice(1)} Projects`;
+
+            /* Set active type */
             this.activeTypes = [params.type];
           }
 
-          /* Show all projects */
+          /* No parameters show all projects */
           else {
+            /* Set heading */
             this.title = 'All Projects';
+
+            /* No active category */
             this.activeTypes = [];
           }
       }
 
-      /* If parameter had a type, fetch data by type */
+      /* If parameter had a type/category, fetch data by type/category */
       if(this.activeTypes.length > 0)
+        /* Fetch projects data */
         this.fetchWorksService.getWorksListByType(this.activeTypes)
           .then((data:MetaProject[]) => {
-            this.worksList = data;
+            /* If data was returned */
+            if(data.length > 0) {
+              /* Cache data */
+              this.worksList = data;
 
-            if(this.sorted.is)
-              this.sortByName(this.sorted.desc);
+              /* Check if it should be sorted */
+              if(this.sorted.is)
+                this.sortByName(this.sorted.desc);
+            }
+
+            /* No data was returned */
+            else {
+              /* Purge projects data cache */
+              this.worksList = [];
+
+              /* Trigger projects not found event */
+              this.isProjectNotFound = true;
+
+              /* Log to console error */
+              console.log('error! projects not found');
+            }
           })
 
       /* If no parameters, fetch all types */
       else
         this.fetchWorksService.getWorksList().then((data:MetaProject[]) => {
+          /* Cache project data */
           this.worksList = data;
 
+          /* Check if it needs sorting */
           if(this.sorted.is)
             this.sortByName(this.sorted.desc);
         })
@@ -129,9 +151,8 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    /* Initiate loader animation in lazy loaded cards */
     let _loaderSubscription = this.imageLoader.changes.subscribe((queryList:QueryList<ElementRef>) => {
-      console.log('hi');
-
       queryList.toArray().forEach(loader => {
         Lottie.loadAnimation({
           container: loader.nativeElement,
@@ -148,8 +169,7 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
 
   /* Unsubscribe from subscriptions */
   ngOnDestroy() {
-    if(this.activeRouterSubscription)
-      this.activeRouterSubscription.unsubscribe();
+    if(this.activeRouterSubscription) this.activeRouterSubscription.unsubscribe();
   }
 
   /**
@@ -189,11 +209,11 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   filterByType(type) {
     /* Navigate with Params */
     if(type.value)
-      this.router.navigate(['works'], {queryParams: {type: type.value}}).then(r => { });
+      this.router.navigate(['works'], {queryParams: {type: type.value}}).then();
 
     /* Navigate with NO Params */
      else
-      this.router.navigate(['works']).then(r => { });
+      this.router.navigate(['works']).then();
   }
 
   /**
@@ -204,26 +224,13 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
     this.filterToggle = !this.filterToggle;
   }
 
-  /* Resolves Media URL */
+  /**
+   * ResolveURL
+   * Appends image type to image URI */
   resolveURL(uri, type) {
     if(type == 'webp')
       return `https://${this.cdn_url}/images/${uri}.webp`;
 
     return `https://${this.cdn_url}/images/${uri}.jpg`;
-  }
-
-  /* Initiates Lottie Loading Element */
-  initiateLottie(element) {
-    console.log(element);
-
-
-  }
-
-  /**
-   * ExternalLink
-   * Prioritize href propagation over angular router link
-   * */
-  externalLink($event: MouseEvent) {
-    $event.stopPropagation();
   }
 }

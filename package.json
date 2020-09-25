@@ -22,19 +22,14 @@
     "@ngx-loading-bar/http-client": "^5.1.0",
     "@ngx-loading-bar/router": "^5.1.0",
     "@splidejs/splide": "^2.4.14",
-    "@splidejs/splide-extension-url-hash": "^0.1.5",
-    "@splidejs/splide-extension-video": "^0.4.6",
-    "angular-loading-bar": "^0.9.0",
-    "bodymovin": "^4.13.0",
-    "gsap": "^3.5.1",
     "http-server": "^0.12.3",
-    "list.js": "^1.5.0",
     "lottie-web": "^5.7.3",
     "ng-lazyload-image": "^9.0.1",
     "rxjs": "~6.5.5",
     "three": "^0.118.3",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    "typed.js": "^2.0.11"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.3",
@@ -54,7 +49,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typed.js": "^2.0.11",
     "typescript": "~3.9.5"
   }
 }

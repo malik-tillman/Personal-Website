@@ -1,47 +1,42 @@
-import {Component, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { FetchWorksService, MetaProject, CDN } from '../fetch-works.service';
-
+/**
+ * header.component
+ * @author Malik Tillman
+ *
+ * 2020
+ * */
+import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { FetchWorksService, MetaProject, CDN, FavoritesId } from '../fetch-works.service';
 import Typed from 'typed.js';
-import { gsap } from 'gsap';
-import {NavigationStart, Router} from '@angular/router';
 
-@Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
-})
+@Component({selector: 'app-header', templateUrl: './header.component.html', styleUrls: ['./header.component.scss']})
 export class HeaderComponent implements AfterViewInit {
+  /* Dynamic CDN URL */
   public cdnUrl:string = CDN;
 
+  /* Handles opening and closing menu */
   public menuToggle:boolean = false;
 
-  public favoritesId:number[] = [130,131,135,154,148];
+  /* Favorite projects ID */
+  public favoritesId:number[] = FavoritesId;
 
+  /* Caches favorites projects */
   public worksList:MetaProject[] = [];
-
-  private typedNameConfig: object = {
-    strings: [ 'Malik_Tillman' ],
-    typeSpeed: 100,
-    startDelay: 1000,
-    showCursor: false,
-    loop: false,
-  };
-
-  @ViewChild("container") container: ElementRef;
 
   constructor(
     private fetchWorksService: FetchWorksService,
     private router:Router
   ) {
-    fetchWorksService.getWorksListByIds(this.favoritesId)
-      .then(( data:MetaProject[] ) => {
-        this.worksList = data;
-      })
+    /* Fetch data for favorite works */
+    fetchWorksService.getWorksListByIds(this.favoritesId).then(( data:MetaProject[] ) => { this.worksList = data })
 
     /* When route changes, close menu and scroll to top */
     router.events.subscribe(event => {
       if(event instanceof NavigationStart){
+        /* Close menu */
         this.menuToggle = false;
+
+        /* Scroll to top */
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
@@ -51,19 +46,24 @@ export class HeaderComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const typedNameObj = new Typed('#name', this.typedNameConfig);
-    typedNameObj.start();
+    /* Initiate typed header text (the naughty way) */
+    new Typed('#name', {
+      strings: [ 'Malik_Tillman' ],
+      typeSpeed: 100,
+      startDelay: 1000,
+      showCursor: false,
+      loop: false,
+    }).start();
   }
 
-  toggleMenu() {
-    this.menuToggle = !this.menuToggle;
-  }
+  /**
+   * ToggleMenu
+   * Toggles menu state by reversing boolean value */
+  toggleMenu() { this.menuToggle = !this.menuToggle }
 
-  closeMenu() {
-    this.menuToggle = false;
-  }
-
-  /* Resolves Media URL */
+  /**
+   * ResolveURL
+   * Appends image type to image URI */
   resolveURL(uri, type) {
     if(type == 'webp')
       return `https://${this.cdnUrl}/images/${uri}.webp`;

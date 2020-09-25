@@ -1,31 +1,16 @@
-import {
-  Component,
-  OnChanges,
-  Input,
-  OnInit,
-  SimpleChanges,
-  OnDestroy,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-  AfterContentInit, ViewChildren, QueryList
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  ResolveEnd,
-  Router
-} from '@angular/router';
+/**
+ * project.component
+ * @author Malik Tillman
+ *
+ * 2020
+ * */
+import { Component, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FetchWorksService, Project, CDN } from '../fetch-works.service';
 import { Subscription } from 'rxjs';
 import Splide from '@splidejs/splide';
-import Video from '@splidejs/splide-extension-video'
 
-@Component({
-  selector: 'project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
-})
+@Component({selector: 'project', templateUrl: './project.component.html', styleUrls: ['./project.component.scss']})
 export class ProjectComponent implements OnDestroy, AfterViewInit {
   /* Dynamic CDN URL */
   public cdn_url:string = CDN;
@@ -37,20 +22,6 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
   @ViewChildren('images') private _imagesRef:QueryList<ElementRef>;
   @ViewChild('images_container') private imagesContainerRef:ElementRef;
 
-  /* Splider Options */
-  private sliderOptions:any = {
-    type: 'loop',
-    autoplay: true,
-    interval: 10000,
-    autoWidth: true,
-    width: '100%',
-    height: '50vh',
-    focus: 'end',
-    slideFocus: false,
-    trimSpace: true,
-    perPage: 1
-  }
-
   /* Project Object */
   public project:Project;
 
@@ -60,7 +31,9 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
 
   /* Image and Video Spliders */
   private imageSplide:Splide;
-  private videoSplide:Splide;
+
+  /* Error Page Toggle */
+  public projectNotFound = false;
 
   constructor(
     private router:Router,
@@ -71,31 +44,48 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     /* Subscribe to activated router to get query parameters */
     this.activatedRouterSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      this.fetchWorksService.getProject(params.id).then((data:Project) => {
-        /* Fetch data */
-        this.project = data;
+      /* Reset project not found toggle */
+      this.projectNotFound = false;
 
-        /* Cache images URIs and initialize slider */
-        if(this.project.images) {
-          this.imgURIs = this.project.images.split(',');
-          this.initializeSplider(this._imagesRef, this.imageSplide, true);
+      /* Get project data */
+      this.fetchWorksService.getProject(params.id).then((data:Project) => {
+        /* If data was returned */
+        if(data) {
+          /* Cache data */
+          this.project = data;
+
+          /* Cache image URIs and initialize slider */
+          if(this.project.images) {
+            this.imgURIs = this.project.images.split(',');
+            this.initializeSplider(this._imagesRef, this.imageSplide, true);
+          }
+
+          /* Cache videos URIs */
+          if(this.project.videos)
+            this.videoURIs = this.project.videos.split(',');
         }
 
-        /* Cache videos URIs and initialize slider */
-        if(this.project.videos) {
-          this.videoURIs = this.project.videos.split(',');
+        /* No data was returned */
+        else {
+          /* Purge projects data cache */
+          this.project = null;
+
+          /* Fire project not found trigger */
+          this.projectNotFound = true;
+
+          /* Console log error */
+          console.log('error! No project was found with that ID');
         }
       });
     })
   }
 
-  /* Unsubscribe from subscriptions */
   ngOnDestroy() {
-    if(this.activatedRouterSubscription)
-      this.activatedRouterSubscription.unsubscribe();
+    /* Unsubscribe from active subscriptions */
+    if(this.activatedRouterSubscription) this.activatedRouterSubscription.unsubscribe();
   }
 
-  /*
+  /**
    * InitializeSplider
    * Resets current splider instance and initializes a new one when content is ready in Dom
    * */
@@ -140,7 +130,9 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
     })
   }
 
-  /* Resolves Media URL */
+  /**
+   * ResolveURL
+   * Appends image type to image URI */
   resolveURL(uri, type) {
     if(type == 'webp')
       return `https://${this.cdn_url}/images/${uri}.webp`;
