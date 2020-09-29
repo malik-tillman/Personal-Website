@@ -151,7 +151,8 @@ export interface Project {
   videos: string,
   github: string,
   behance: string,
-  website: string
+  website: string,
+  date: string
 }
 
 /**

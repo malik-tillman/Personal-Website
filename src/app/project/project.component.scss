@@ -12,6 +12,11 @@
     text-align: center;
   }
 
+  h3 {
+    font-size: .9em;
+    color: #b4b4b4;
+  }
+
   .project-title {
     margin: 10px 0 0 0;
   }
@@ -148,12 +153,24 @@
     margin-top: 50px;
     padding: 0 25px;
 
+    overflow: hidden;
+
     .project-link {
       display: flex;
       flex-direction: row;
+      justify-content: center;
+
       margin-top: 25px;
       text-decoration: none;
       max-height: 25px;
+
+      transform: scale(1);
+      will-change: transform;
+      transition: transform .5s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
 
       &.small {
         h2 {
