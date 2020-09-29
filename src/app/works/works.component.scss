@@ -272,6 +272,18 @@
   }
 }
 
+.results_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  h2 {
+    color: white;
+    font-size: 32px;
+    font-family: Josefin Sans, sans-serif;
+  }
+}
+
 @media (max-width: 630px) {
   .container {
     padding: 0 10px;

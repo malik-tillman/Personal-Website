@@ -55,6 +55,9 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
   /* Lazy load default image */
   public default_image = 'assets/lazy-thumb.jpg';
 
+  /* Amount of works not hidden */
+  public worksCount:number;
+
   /* Caches component sort state */
   private sorted = {
     is: false,
@@ -119,6 +122,15 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
               /* Cache data */
               this.worksList = data;
 
+
+              /* Get non-hidden count */
+              this.worksCount = 0;
+
+              this.worksList.forEach(work => {
+                if(!work.hidden)
+                  this.worksCount++
+              })
+
               /* Check if it should be sorted */
               if(this.sorted.is)
                 this.sortByName(this.sorted.desc);
@@ -128,6 +140,9 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
             else {
               /* Purge projects data cache */
               this.worksList = [];
+
+              /* Reset non-hidden count */
+              this.worksCount = 0;
 
               /* Trigger projects not found event */
               this.isProjectNotFound = true;
@@ -142,6 +157,14 @@ export class WorksComponent implements OnDestroy, AfterViewInit {
         this.fetchWorksService.getWorksList().then((data:MetaProject[]) => {
           /* Cache project data */
           this.worksList = data;
+
+          /* Get non-hidden count */
+          this.worksCount = 0;
+
+          this.worksList.forEach(work => {
+            if(!work.hidden)
+              this.worksCount++
+          })
 
           /* Check if it needs sorting */
           if(this.sorted.is)

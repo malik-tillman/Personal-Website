@@ -54,8 +54,6 @@ export class ProjectComponent implements OnDestroy, AfterViewInit {
           /* Cache data */
           this.project = data;
 
-          console.log(data);
-
           /* Cache image URIs and initialize slider */
           if(this.project.images) {
             this.imgURIs = this.project.images.split(',');

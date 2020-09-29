@@ -15,6 +15,7 @@
   h3 {
     font-size: .9em;
     color: #b4b4b4;
+    text-align: center;
   }
 
   .project-title {
@@ -134,8 +135,7 @@
     margin-bottom: 25px;
 
     video {
-      max-width: 75%;
-      max-height: 75%;
+      max-height: 75vh;
 
       transform: scale(1);
       will-change: transform;

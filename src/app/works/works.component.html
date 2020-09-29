@@ -25,12 +25,12 @@
           <select name="filter_types" (change)="filterByType.call(this, $event.target)">
             <option value="">All Projects</option>
             <option value="web">Web Development</option>
+            <option value="app">Mobile Apps</option>
             <option value="graphic">Graphic Design</option>
             <option value="video">Videography</option>
+            <option value="research">School Research</option>
             <option value="photo" disabled>Photography (coming soon)</option>
-            <option value="app" disabled>Apps (coming soon)</option>
             <option value="game" disabled>Games (coming soon)</option>
-            <option value="research" disabled>Research (coming soon)</option>
           </select>
         </label>
       </div>
@@ -48,6 +48,10 @@
 
                 <h3 *ngIf="works.category === 'graphic'">
                   Graphic Design
+                </h3>
+
+                <h3 *ngIf="works.category === 'app'">
+                  Mobile App
                 </h3>
 
                 <h3 *ngIf="works.category === 'video'">
@@ -95,122 +99,122 @@
 
               <div class="works-tags">
                 <ng-container *ngIf="works.tags.split(',').includes('html')">
-                  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/html.png" alt="HTML Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('css')">
-                  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/css.png" alt="CSS Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('javascript')">
-                  <a href="https://developer.mozilla.org/en-US/docs/Web/javascript" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/javascript" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/javascript.png" alt="Javascript Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('xml')">
-                  <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/xml.png" alt="XML Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('scss')">
-                  <a href="https://sass-lang.com/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://sass-lang.com/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/scss.png" alt="SCSS Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('typescript')">
-                  <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/typescript.png" alt="TypeScript Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('java,')">
-                  <a href="https://docs.oracle.com/javase/7/docs/api/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.oracle.com/javase/7/docs/api/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/java.png" alt="Java Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('c++')">
-                  <a href="https://docs.microsoft.com/en-us/cpp/?view=vs-2019" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.microsoft.com/en-us/cpp/?view=vs-2019" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/c++.png" alt="C++ Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('c#')">
-                  <a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/csharp.png" alt="C# Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('opencv')">
-                  <a href="https://docs.opencv.org/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.opencv.org/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/opencv.png" alt="OpenCV Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('mips32')">
-                  <a href="https://www.mips.com/products/architectures/mips32-2/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.mips.com/products/architectures/mips32-2/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/mips32.png" alt="MIPS32 Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('rainmeter')">
-                  <a href="https://docs.rainmeter.net/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.rainmeter.net/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/rainmeter.png" alt="Rainmeter Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('django')">
-                  <a href="https://www.djangoproject.com/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.djangoproject.com/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/django.png" alt="Django Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('asp.net')">
-                  <a href="https://dotnet.microsoft.com/apps/aspnet" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://dotnet.microsoft.com/apps/aspnet" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/aspnet.png" alt="Asp.net Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('node')">
-                  <a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/node.png" alt="Node JS Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('postgre')">
-                  <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/postgre.png" alt="Postgre SQL Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('t-sql')">
-                  <a href="https://docs.microsoft.com/en-us/sql/t-sql/tutorial-writing-transact-sql-statements?view=sql-server-ver15" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.microsoft.com/en-us/sql/t-sql/tutorial-writing-transact-sql-statements?view=sql-server-ver15" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/tsql.png" alt="Transact-SQL Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('mysql')">
-                  <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/mysql.png" alt="MySQL Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('android')">
-                  <a href="https://developer.android.com/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://developer.android.com/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/android.png" alt="Android Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('photoshop')">
-                  <a href="https://www.adobe.com/products/photoshop.html" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.adobe.com/products/photoshop.html" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/photoshop.png" alt="Photoshop Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('after effects')">
-                  <a href="https://www.adobe.com/products/aftereffects.html" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.adobe.com/products/aftereffects.html" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/ae.png" alt="After Effects Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('premiere pro')">
-                  <a href="https://www.adobe.com/products/premiere.html" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.adobe.com/products/premiere.html" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/premiere.png" alt="Premiere Pro Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('cinema 4d')">
-                  <a href="https://www.maxon.net/en-us/products/cinema-4d/overview/" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://www.maxon.net/en-us/products/cinema-4d/overview/" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/cinema.png" alt="Cinema 4d Icon">
                   </a>
                 </ng-container>
                 <ng-container *ngIf="works.tags.split(',').includes('unity')">
-                  <a href="https://docs.unity3d.com/Manual/index.html" target="_blank" rel="noopener noreferrer" (click)="externalLink($event)">
+                  <a href="https://docs.unity3d.com/Manual/index.html" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
                     <img src="assets/tag-icons/unity.png" alt="Unity Icon">
                   </a>
                 </ng-container>
@@ -230,6 +234,13 @@
 
         </a>
       </ng-container>
+    </div>
+
+    <div class="results_container">
+      <h2 *ngIf="worksCount > 1">{{ worksCount }} Results Returned</h2>
+      <h2 *ngIf="worksCount == 1">{{ worksCount }} Result Returned</h2>
+      <h2 *ngIf="worksCount == 0">No Results Returned</h2>
+      <h2 *ngIf="worksCount <= 0">Woah something really went wrong</h2>
     </div>
   </div>
 
