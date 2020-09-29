@@ -16,7 +16,7 @@ export class FooterComponent implements OnInit {
       strings: [
         'Welcome to MalikTillman.com!',
         '"What\'s science to a man that can\'t apply it?" - Roc Marciano',
-        'I build sites 💻 and make videos 🎥',
+        'I build stuff.',
         'This site was designed and developed by Malik Tillman',
         'Collaborations always welcome',
         'A Leek Production'
