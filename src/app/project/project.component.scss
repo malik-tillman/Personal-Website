@@ -136,6 +136,7 @@
 
     video {
       max-height: 75vh;
+      max-width: 100%;
 
       transform: scale(1);
       will-change: transform;
